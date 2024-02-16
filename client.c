@@ -10,7 +10,7 @@
 #include <stdio.h>
 
 
-#define PORT 6969
+#define PORT 9999
 
 int main() {
     int clientfd, flag;
@@ -29,11 +29,9 @@ int main() {
     address.sin_addr.s_addr = 0;
     address.sin_port = htons(PORT);
 
-    if ((flag = connect(clientfd, (struct sockaddr *)&address, sizeof(address))) <= 0) {
-        printf("%d", clientfd);
-        perror("Connection failed");
-        exit(EXIT_FAILURE);
-    }
+    int retConnect = connect(clientfd, (struct sockaddr *)&address, sizeof(address));
+
+    printf("CONNECT: %d", retConnect);
 
     struct pollfd fds[2] = {
         {
@@ -60,7 +58,7 @@ int main() {
                 exit(EXIT_FAILURE);
             }
 
-            printf("[%d]: %s\n", clientfd, buffer);
+            printf("[%d]: %s\n", address.sin_addr.s_addr, buffer);
         }
     }
 

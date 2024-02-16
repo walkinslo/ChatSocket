@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 
-#define PORT 6969
+#define PORT 9999
 
 int main() {
     int serverfd, new_sock;
